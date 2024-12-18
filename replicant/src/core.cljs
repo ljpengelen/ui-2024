@@ -98,13 +98,18 @@
   (swap! state dismiss-answer (random-question))
   (set-deadline!))
 
-;; Event handling
+;; Replicant utilities
 
 (defn prevent-default! [{:replicant/keys [js-event]}]
   (.preventDefault js-event))
 
 (defn node-value [{:replicant/keys [node]}]
   (.-value node))
+
+(defn focus [{:replicant/keys [node]} _]
+  (.focus node))
+
+;; Event handling
 
 (defn handle-event [replicant-data handler-data] 
   (case (first handler-data)
@@ -116,7 +121,7 @@
                              (prevent-default! replicant-data)
                              (dismiss-answer-view!))))
 
-;; Reagent components
+;; Replicant render functions
 
 (defn score-view [label score]
   [:div (str label ": " score)])
@@ -125,16 +130,16 @@
   [:div
    [:div (str left " x " right " = " (* left right))]
    [:form {:on {:submit [:answer-view-dismissed]}}
-    [:button {:autoFocus true} "OK"]]])
+    [:button {:replicant/on-render focus} "OK"]]])
 
 (defn question-view [{:keys [answer left right deadline-passed?]}]
   [:div (when deadline-passed? {:class "deadline-passed"}) (str left " x " right " = ")
    [:form {:on {:submit [:answer-submitted]}}
-    [:input {:autoFocus true
-             :type "text"
+    [:input {:type "text"
              :inputMode "numeric"
              :value answer
-             :on {:input [:answer-updated]}}]]])
+             :on {:input [:answer-updated]}
+             :replicant/on-render focus}]]])
 
 (defn app [{:keys [answer score highscore question deadline-passed? mode]}] 
   (let [[left right] question]
