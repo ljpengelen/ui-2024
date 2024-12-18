@@ -107,7 +107,6 @@
   (.-value node))
 
 (defn handle-event [replicant-data handler-data] 
-  (println "wtf" replicant-data handler-data)
   (case (first handler-data)
     :answer-submitted (do
                         (prevent-default! replicant-data)
