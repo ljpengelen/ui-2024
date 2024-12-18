@@ -17,4 +17,4 @@ Afterwards, run the tests by executing `node out/node-test.js`.
 ## Deploying
 
 Execute `deploy.sh` to deploy with GitHub pages.
-The resulting release build can be found in `/docs`.
+The resulting release build can be found in `../uix/docs`.

@@ -6,7 +6,7 @@
                 :output-dir "public/js"
                 :asset-path "/js"
                 :build-hooks [(shadow-cljs-hash-assets-hook/hash-assets! {:source-root "public"
-                                                                          :target-root "docs"
+                                                                          :target-root "../docs/uix"
                                                                           :index "index.html"
                                                                           :files ["css/site.css" "js/app.js"]
                                                                           :release-mode-only? true})]
