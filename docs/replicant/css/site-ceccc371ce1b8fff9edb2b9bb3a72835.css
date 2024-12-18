@@ -1,0 +1,40 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.125em;
+  color: #333;
+  height: 100%;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 1rem;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 30rem;
+}
+
+.deadline-passed {
+  color: red;
+}
+
+.multiplication-tables {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin: 2rem auto;
+  min-width: 20rem;
+}
+
+.multiplication-tables form {
+  display: inline-block;
+}
+
+button {
+  width: fit-content;
+}
