@@ -96,7 +96,8 @@
     (uix.core/use-effect (fn []
                            (when-not deadline-passed?
                              (let [timeout-id (js/setTimeout (fn [] (set-deadline-passed! true)) 5000)]
-                               (fn [] (js/clearTimeout timeout-id))))))
+                               (fn [] (js/clearTimeout timeout-id)))))
+                         [deadline-passed? set-deadline-passed!])
     ($ :div (when deadline-passed? {:class "deadline-passed"}) left " x " right " = "
        ($ :form {:on-submit (fn [e]
                               (.preventDefault e)
