@@ -79,7 +79,7 @@
 (defn dismiss-answer-view! [state]
   (dismiss-answer state (random-question)))
 
-;; Views
+;; UIx components
 
 (defui score-view [{:keys [label score]}]
   ($ :div label ": " score))
