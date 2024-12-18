@@ -1,4 +1,4 @@
-{:source-paths ["src"]
+{:source-paths ["src" "test"]
  :dependencies [[com.github.ljpengelen/shadow-cljs-hash-assets-hook "1.1.0"]
                 [com.pitch/uix.core "1.3.0"]
                 [com.pitch/uix.dom "1.3.0"]]
@@ -10,8 +10,8 @@
                                                                           :index "index.html"
                                                                           :files ["css/site.css" "js/app.js"]
                                                                           :release-mode-only? true})]
-                :modules {:app {:entries [core]}}
-                :devtools {:after-load core/mount-root}}
+                :modules {:app {:init-fn init/init!}}
+                :devtools {:after-load init/mount-root}}
           :test {:target :node-test
                  :output-to "out/node-tests.js"}
           :browser-test {:target :browser-test

@@ -127,14 +127,3 @@
                               :deadline-passed? deadline-passed?
                               :set-deadline-passed! (fn [] (set-state! (assoc state :deadline-passed? true)))
                               :on-submit (fn [answer] (set-state! (process-answer! state answer)))}))))))
-
-;; Initialization
-
-(defonce root
-  (uix.dom/create-root (js/document.getElementById "app")))
-
-(defn mount-root []
-  (uix.dom/render-root ($ app) root))
-
-(defn ^:export init! []
-  (mount-root))
