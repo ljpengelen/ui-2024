@@ -1,0 +1,5 @@
+{:paths ["src" "test" "dev"]
+ :deps {com.github.ljpengelen/shadow-cljs-hash-assets-hook {:mvn/version "1.1.0"}
+        no.cjohansen/replicant {:git/url "https://github.com/cjohansen/replicant.git"
+                                :git/sha "ac4a4741f58c62ee5386b9ca476cc30fa1a6ba44"}
+        thheller/shadow-cljs {:mvn/version "2.28.20"}}}

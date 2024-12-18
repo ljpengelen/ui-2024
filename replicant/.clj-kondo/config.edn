@@ -1,0 +1,2 @@
+{:lint-as {helix.core/defnc clojure.core/defn}
+ :linters {:clojure-lsp/unused-public-var {:exclude #{init/init! preload/refresh}}}}
