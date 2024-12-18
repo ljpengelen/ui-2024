@@ -1,8 +1,7 @@
 (ns core
   (:require
    [clojure.string :as string]
-   [uix.core :refer [$ defui use-state]]
-   [uix.dom]))
+   [uix.core :refer [$ defui use-state]]))
 
 ;; "Domain logic"
 

@@ -6,9 +6,7 @@
 
 ;; Render the main app component into a DOM element
 
-(defonce root
-  (when-let [root-element (js/document.getElementById "app")]
-    (uix.dom/create-root root-element)))
+(defonce root (uix.dom/create-root (js/document.getElementById "app")))
 
 (defn mount-root []
   (uix.dom/render-root ($ core/app) root))
