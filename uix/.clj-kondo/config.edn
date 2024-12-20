@@ -1,0 +1,2 @@
+{:lint-as {uix.core/defui clojure.core/defn}
+ :linters {:clojure-lsp/unused-public-var {:exclude #{init/init!}}}}

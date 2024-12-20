@@ -1,6 +1,6 @@
 .calva
 .clj-kondo/*
-!clj-konde/config.edn
+!.clj-kondo/config.edn
 .lsp
 .shadow-cljs
 node_modules
