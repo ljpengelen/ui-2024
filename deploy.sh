@@ -1,5 +1,11 @@
 #!/bin/sh
+
 rm -rf docs
-(cd reagent;./deploy.sh)
-(cd uix;./deploy.sh)
+mkdir docs
+
+cp static/index.html docs
+
 (cd helix;./deploy.sh)
+(cd reagent;./deploy.sh)
+(cd replicant;./deploy.sh)
+(cd uix;./deploy.sh)
