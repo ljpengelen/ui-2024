@@ -7,7 +7,8 @@
                                                                           :index "index.html"
                                                                           :files ["css/site.css" "js/app.js"]
                                                                           :release-mode-only? true})]
-                :modules {:app {:init-fn init/init!}}}
+                :modules {:app {:init-fn init/init!}}
+                :devtools {:after-load init/init!}}
           :test {:target :node-test
                  :output-to "out/node-tests.js"}
           :browser-test {:target :browser-test
