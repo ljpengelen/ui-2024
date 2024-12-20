@@ -45,8 +45,8 @@
 (defn high-score [{:keys [high-score]} new-score]
   (max new-score high-score))
 
-(defn score [{:keys [score deadline-passed?]} correct-anwer?]
-  (if (and (not deadline-passed?) correct-anwer?) (inc score) 0))
+(defn score [{:keys [score deadline-passed?]} correct-answer?]
+  (if (and (not deadline-passed?) correct-answer?) (inc score) 0))
 
 (defn wrongly-answered [{:keys [deadline-passed? mode question wrongly-answered]} correct-answer?]
   (if (and correct-answer? (not deadline-passed?) (not= mode :show-correct-answer))
@@ -55,16 +55,16 @@
 
 (defn process-answer [state answer random-question]
   (let [[left right] (:question state)
-        correct-anwer? (= (str (* left right)) answer)
-        new-score (score state correct-anwer?)
-        new-mode (mode state correct-anwer?)]
+        correct-answer? (= (str (* left right)) answer)
+        new-score (score state correct-answer?)
+        new-mode (mode state correct-answer?)]
     (assoc state
            :deadline-passed? false
            :high-score (high-score state new-score)
            :mode new-mode
            :question (question state new-mode random-question)
            :score new-score
-           :wrongly-answered (wrongly-answered state correct-anwer?))))
+           :wrongly-answered (wrongly-answered state correct-answer?))))
 
 (defn dismiss-answer [state random-question] 
   (assoc state 

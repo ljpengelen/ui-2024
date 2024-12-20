@@ -25,7 +25,7 @@
 (defonce state
   (atom {:answer nil
          :deadline-passed? false
-         :highscore 0
+         :high-score 0
          :mode :against-the-clock
          :question (random-question)
          :score 0
@@ -50,11 +50,11 @@
     :repeat-wrongly-answered (first wrongly-answered)
     :show-correct-answer question))
 
-(defn highscore [{:keys [highscore]} new-score]
-  (max new-score highscore))
+(defn high-score [{:keys [high-score]} new-score]
+  (max new-score high-score))
 
-(defn score [{:keys [score deadline-passed?]} correct-anwer?]
-  (if (and (not deadline-passed?) correct-anwer?) (inc score) 0))
+(defn score [{:keys [score deadline-passed?]} correct-answer?]
+  (if (and (not deadline-passed?) correct-answer?) (inc score) 0))
 
 (defn wrongly-answered [{:keys [deadline-passed? mode question wrongly-answered]} correct-answer?]
   (if (and correct-answer? (not deadline-passed?) (not= mode :show-correct-answer))
@@ -70,7 +70,7 @@
     (assoc state
            :answer nil
            :deadline-passed? false
-           :highscore (highscore state new-score)
+           :high-score (high-score state new-score)
            :mode new-mode
            :question (question state new-mode random-question)
            :score new-score 
@@ -141,14 +141,14 @@
              :on {:input [:answer-updated]}
              :replicant/on-render focus}]]])
 
-(defn app [{:keys [answer score highscore question deadline-passed? mode]}] 
+(defn app [{:keys [answer score high-score question deadline-passed? mode]}] 
   (let [[left right] question]
     [:div.multiplication-tables
      (if (= mode :show-correct-answer)
        (answer-view left right)
        [:div
         (score-view "Score" score)
-        (score-view "High score" highscore)
+        (score-view "High score" high-score)
         (question-view {:answer answer
                         :deadline-passed? deadline-passed?
                         :left left
