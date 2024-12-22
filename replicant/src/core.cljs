@@ -46,7 +46,7 @@
 
 (defn question [{:keys [question wrongly-answered]} new-mode random-question]
   (case new-mode
-    :against-the-clock random-question 
+    :against-the-clock random-question
     :repeat-wrongly-answered (first wrongly-answered)
     :show-correct-answer question))
 
@@ -73,7 +73,7 @@
            :high-score (high-score state new-score)
            :mode new-mode
            :question (question state new-mode random-question)
-           :score new-score 
+           :score new-score
            :wrongly-answered (wrongly-answered state correct-answer?))))
 
 (defn dismiss-answer [state random-question]
@@ -81,22 +81,6 @@
          :deadline-passed? false
          :mode :against-the-clock
          :question random-question))
-
-;; State manipulation
-
-(defn set-deadline! []
-  (set-timeout! (fn [] (swap! state assoc :deadline-passed? true))))
-
-(defn process-answer! []
-  (when-not (string/blank? (:answer @state))
-    (clear-timeout!)
-    (swap! state process-answer (random-question))
-    (set-deadline!)))
-
-(defn dismiss-answer-view! []
-  (clear-timeout!)
-  (swap! state dismiss-answer (random-question))
-  (set-deadline!))
 
 ;; Replicant utilities
 
@@ -106,20 +90,31 @@
 (defn node-value [{:replicant/keys [node]}]
   (.-value node))
 
-(defn focus [{:replicant/keys [node]} _]
-  (.focus node))
-
 ;; Event handling
 
-(defn handle-event [replicant-data handler-data] 
-  (case (first handler-data)
-    :answer-submitted (do
-                        (prevent-default! replicant-data)
-                        (process-answer!))
-    :answer-updated (swap! state assoc :answer (node-value replicant-data))
-    :answer-view-dismissed (do
-                             (prevent-default! replicant-data)
-                             (dismiss-answer-view!))))
+(defn set-deadline! []
+  (set-timeout! (fn [] (swap! state assoc :deadline-passed? true))))
+
+(defmulti handle-event (fn [_ handler-data] (first handler-data)))
+
+(defmethod handle-event :answer-submitted [replicant-data _]
+  (prevent-default! replicant-data)
+  (when-not (string/blank? (:answer @state))
+    (clear-timeout!)
+    (swap! state process-answer (random-question))
+    (set-deadline!)))
+
+(defmethod handle-event :answer-updated [replicant-data _]
+  (swap! state assoc :answer (node-value replicant-data)))
+
+(defmethod handle-event :answer-view-dismissed [replicant-data _]
+  (prevent-default! replicant-data)
+  (clear-timeout!)
+  (swap! state dismiss-answer (random-question))
+  (set-deadline!))
+
+(defmethod handle-event :focus [{:replicant/keys [node]} _]
+  (.focus node))
 
 ;; Replicant render functions
 
@@ -130,7 +125,7 @@
   [:div
    [:div (str left " x " right " = " (* left right))]
    [:form {:on {:submit [:answer-view-dismissed]}}
-    [:button {:replicant/on-render focus} "OK"]]])
+    [:button {:replicant/on-render [:focus]} "OK"]]])
 
 (defn question-view [{:keys [answer left right deadline-passed?]}]
   [:div (when deadline-passed? {:class "deadline-passed"}) (str left " x " right " = ")
@@ -139,9 +134,9 @@
              :inputMode "numeric"
              :value answer
              :on {:input [:answer-updated]}
-             :replicant/on-render focus}]]])
+             :replicant/on-render [:focus]}]]])
 
-(defn app [{:keys [answer score high-score question deadline-passed? mode]}] 
+(defn app [{:keys [answer score high-score question deadline-passed? mode]}]
   (let [[left right] question]
     [:div.multiplication-tables
      (if (= mode :show-correct-answer)
