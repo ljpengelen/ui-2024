@@ -1,0 +1,5 @@
+{:paths ["src" "test" "dev"]
+ :deps {com.github.ljpengelen/shadow-cljs-hash-assets-hook {:mvn/version "1.1.0"}
+        com.thheller/shadow-grove {:git/url "https://github.com/thheller/shadow-grove.git"
+                                   :git/sha "bc580434fb208f5de33af6e71fb1cfeb8d48f9b5"}
+        thheller/shadow-cljs {:mvn/version "2.28.20"}}}

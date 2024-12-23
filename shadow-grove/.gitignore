@@ -1,0 +1,10 @@
+.calva
+.clj-kondo/*
+!.clj-kondo/config.edn
+!.clj-kondo/hooks
+.cpcache
+.lsp
+.shadow-cljs
+node_modules
+out
+public/js

@@ -1,0 +1,2 @@
+{:hooks {:analyze-call {shadow.grove/defc hooks.grove/defc}}
+ :linters {:clojure-lsp/unused-public-var {:exclude #{init/init! init/reload!}}}}

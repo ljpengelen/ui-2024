@@ -1,0 +1,6 @@
+{
+  "name": "shadow-grove",
+  "devDependencies": {
+    "shadow-cljs": "^2.28.20"
+  }
+}
